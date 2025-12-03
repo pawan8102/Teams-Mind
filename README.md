@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Teams-Mind
+Team Collaboration & Messaging Application
 
-## Getting Started
+This is a web application built using Next.js that allows users to sign up, login, and interact with team members through public and private messages. The application uses Tailwind CSS for styling and Supabase as the database and authentication backend.
 
-First, run the development server:
+Features
+User Authentication: New users can sign up, and existing users can log in.
+Dashboard: After login, users are redirected to a dashboard displaying:
+Username
+Team name
+Sign out button
+Messaging System:
+Users can post messages as Public or Private.
+Public messages: visible to all users of the application.
+Private messages: visible only to members of the same team.
+Users can like and comment on messages.
+Comments display as Anonymous (user names are hidden).
+Setup & Run Instructions
+Install dependencies:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the development server: npm run dev Open your browser and navigate to http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Currently this application live on: https://teams-mind.netlify.app/ Architecture Overview Next.js Server Actions: The application uses Next.js Server Actions to handle backend operations like:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+User authentication (sign up, login, logout)
 
-## Learn More
+Message creation, fetching, and deletion
 
-To learn more about Next.js, take a look at the following resources:
+Comment and like handling
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Pages Structure:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+/signup – user registration page
 
-## Deploy on Vercel
+/login – user login page
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+/dashboard – main user dashboard with messaging functionalities
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Components:
+
+MessageCard – displays individual messages with likes and comments
+
+CommentSection – handles comments on messages
+
+Navbar – shows username, team name, and sign out button
+
+Database (Supabase):
+
+Tables:
+
+users – stores user details and team association
+
+messages – stores message content, type (public/private), author, and timestamps
+
+comments – stores comments on messages anonymously
+
+likes – stores likes associated with messages
+
+Access Control Logic Message Visibility:
+
+Public messages are visible to all users.
+
+Private messages are visible only to users in the same team as the message author.
+
+Comments:
+
+Users can comment on any visible message.
+
+Comment authors are shown as "Unknown" to maintain anonymity.
+
+Server Actions enforce these rules before returning any data to the client.
+
+Reflection The most challenging feature to implement was Access Control for private messages and anonymous comments. Ensuring that users only see messages for their team while still being able to like and comment anonymously required careful handling of Supabase queries and Server Actions.
+
+Tech Stack Frontend: Next.js, Tailwind CSS
+
+Backend / Database: Supabase (Authentication + PostgreSQL)
+
+Hosting: Netlify
